@@ -12,18 +12,41 @@
 #include <vector>    // std::vector
 
 std::vector<int> createSecret() {
-    // Write this procedure here
-    return {};    // replace this with your code
+    std::vector<int> secret;
+    for (int i = 0; i<4; ++i) {
+        secret.push_back(rand() % 10); 
+    }
+    return secret;    // replace this with your code
 }
 
 std::vector<std::string> getHint(std::vector<int> secret, std::vector<int> guess) {
-    // Write this procedure here
-    return {"X", "X", "X", "X"};    // replace this with your code
+    std::vector<std::string> hint(4, "X");
+    for (int i=0; i<4; ++i) {
+        if (secret[i] == guess [i]) {
+            hint [i] = "O";
+        }
+    }
+
+for (int i= 0; i<4; ++i) {
+    if (hint[i] == "O") continue; 
+    for (int j = 0; j<4; ++j) {
+        if (i ! = j && guess[i] == secret [j] && hint [j] ! = "O") {
+            hint [i] = "X";
+            break;
+        }
+    }
+}  
+
+    return hint;
 }
 
 bool winGame(std::vector<int> secret, std::vector<int> guess) {
-    // Write this procedure here
-    return false;    // replace this with your code
+    for (int i=0; i<4; ++i) {
+        if (secret[i] ! = guess[i]) {
+            return false;
+        }
+    }
+    return true;    // replace this with your code
 }
 
 int main()
@@ -31,7 +54,7 @@ int main()
     // Seeding the random number generator
     // Uncomment the code when you are finished testing your program
     // and want to have the program run for real
-    // srand(time(0));
+     srand(time(0));
     
     std::vector<int> secret_code = createSecret();
     std::vector<int> user_guess = {};
@@ -50,12 +73,15 @@ int main()
         {
             int input;
             std::cin >> input;
-            guess.push_back(input);    // can also do append(guess, input);
+            append (guess,input);    // can also do append(guess, input);
         }
 
         hint = getHint(secret_code, user_guess);
-        display(hint);
-        num_guesses = num_guesses + 1;
+        for (const auto& h : hint) {
+            std::cout << h << " " ; 
+        }
+        std::cout << std:endl;
+        num_guesses++;
     }
 
     std::cout << "Congrats!  You guessed the code!  It took you " << num_guesses << " tries.\n";
