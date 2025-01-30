@@ -12,31 +12,30 @@
 #include <vector>    // std::vector
 
 std::vector<int> createSecret() {
-    std::vector<int> secret;
-    for (int i = 0; i<4; ++i) {
-        secret.push_back(rand() % 10); 
+    std::vector<int> code = {};
+    int counter =0;
+       while (counter<4) 
+       {
+        int val = rand() % 10;
+        code.push_back(val); 
+        counter = counter + 1;
     }
-    return secret;    // replace this with your code
+    return code;    // replace this with your code
 }
 
-std::vector<std::string> getHint(std::vector<int> secret, std::vector<int> guess) {
-    std::vector<std::string> hint(4, "X");
-    for (int i=0; i<4; ++i) {
-        if (secret[i] == guess [i]) {
-            hint [i] = "O";
+std::vector<std::string> getHint(std::vector<int> code, std::vector<int> guess) {
+    std::vector<std::string> hint = {};
+    for (int counter = 0; counter < 4; counter = counter + 1) {
+        if (code[counter] == guess[counter])
+        {
+            hint.push_back("O");
+        }
+        else
+        {
+            hint.push_back("X");
         }
     }
-
-for (int i= 0; i<4; ++i) {
-    if (hint[i] == "O") continue; 
-    for (int j = 0; j<4; ++j) {
-        if (i ! = j && guess[i] == secret [j] && hint [j] ! = "O") {
-            hint [i] = "X";
-            break;
-        }
-    }
-}  
-
+ }
     return hint;
 }
 
