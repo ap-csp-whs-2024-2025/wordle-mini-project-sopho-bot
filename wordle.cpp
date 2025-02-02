@@ -25,7 +25,8 @@ std::vector<int> createSecret() {
 
 std::vector<std::string> getHint(std::vector<int> code, std::vector<int> guess) {
     std::vector<std::string> hint = {};
-    for (int counter = 0; counter < 4; counter = counter + 1) {
+
+    for (int counter = 0; counter < 4; counter++) {
         if (code[counter] == guess[counter])
         {
             hint.push_back("O");
@@ -35,13 +36,14 @@ std::vector<std::string> getHint(std::vector<int> code, std::vector<int> guess) 
             hint.push_back("X");
         }
     }
- }
+ 
     return hint;
 }
 
 bool winGame(std::vector<int> secret, std::vector<int> guess) {
     for (int i=0; i<4; ++i) {
-        if (secret[i] ! = guess[i]) {
+        if (secret[i] = guess[i])
+         {
             return false;
         }
     }
@@ -56,7 +58,7 @@ int main()
      srand(time(0));
     
     std::vector<int> secret_code = createSecret();
-    std::vector<int> user_guess = {};
+    std::vector<int> user_guess = {-1,-1,-1,-1};
     std::vector<std::string> hint = {};    // an empty list
 
     int secret_code_length = 4;
@@ -72,14 +74,14 @@ int main()
         {
             int input;
             std::cin >> input;
-            append (guess,input);    // can also do append(guess, input);
+            user_guess.push_back(input);    // can also do append(guess, input);
         }
 
         hint = getHint(secret_code, user_guess);
         for (const auto& h : hint) {
             std::cout << h << " " ; 
         }
-        std::cout << std:endl;
+        std::cout << std::endl;
         num_guesses++;
     }
 
