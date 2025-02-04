@@ -11,18 +11,21 @@
 #include <string>    // std::string, std::getline
 #include <vector>    // std::vector
 
-std::vector<int> createSecret() {
+std::vector<int> createSecret()
+{
     std::vector<int> code = {};
     int counter =0;
-       while (counter<4) 
-       {
+    while (counter<4) 
+    {
         int val = rand() % 10;
         code.push_back(val); 
         counter = counter + 1;
     }
     return code;    
+}
 
-    std::vector<std::string> getHint(std::vector<int> code, std::vector<int> guess) {
+std::vector<std::string> getHint(std::vector<int> code, std::vector<int> guess)
+{
     std::vector<std::string> hint = {}; // Tracks if a guess position has been matched
     int curr_index=0; 
 
@@ -34,7 +37,7 @@ std::vector<int> createSecret() {
         }
         else 
         {
-            hint.push_back("O");
+            hint.push_back("✧");
         }
         curr_index = curr_index + 1;
     }
@@ -42,7 +45,8 @@ std::vector<int> createSecret() {
     return hint;
 }
 
-bool winGame(std::vector<int> secret, std::vector<int> guess) {
+bool winGame(std::vector<int> secret, std::vector<int> guess) 
+{
     for (int counter=0; counter<4; counter++) {
         if (secret[counter] != guess[counter])
          {
@@ -58,15 +62,18 @@ int main()
     // Uncomment the code when you are finished testing your program
     // and want to have the program run for real
      srand(time(0));
+
+     std::vector<int> secret_code = createSecret();
+     std::cout << "Here is the secret code: ";
+     display(secret_code);
     
-    std::vector<int> secret_code = createSecret();
     std::vector<int> user_guess = {-1,-1,-1,-1};
     std::vector<std::string> hint = {};    // an empty list
 
     int secret_code_length = 4;
     int num_guesses = 0;
 
-    std::cout << " ｡⋆୨୧˚Welcome to Number Wordle!⋆⋆୨୧˚ You have 10 guesses to figure out the 4 digit code. A letter X means INCORRECT and O means CORRECT! \n";
+    std::cout << " ｡⋆୨୧˚Welcome to Number Wordle!⋆⋆୨୧˚ You have 10 guesses to figure out the 4 digit code. A letter X means INCORRECT and ✧ means CORRECT! \n";
     
     while (!winGame(secret_code, user_guess))    // while you have not won the game yet
     {
