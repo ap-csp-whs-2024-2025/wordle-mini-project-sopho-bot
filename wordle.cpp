@@ -64,8 +64,8 @@ int main()
      srand(time(0));
 
      std::vector<int> secret_code = createSecret();
-     std::cout << "Here is the secret code: ";
-     display(secret_code);
+     //std::cout << "Here is the secret code: ";
+     //display(secret_code);
     
     std::vector<int> user_guess = {-1,-1,-1,-1};
     std::vector<std::string> hint = {};    // an empty list
